@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="$(ProjectDir)ng build" />
+    <Exec Command="::$(ProjectDir)ng build" />
   </Target>
 
 </Project>
