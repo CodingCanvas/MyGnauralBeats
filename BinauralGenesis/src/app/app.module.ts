@@ -1,11 +1,10 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatSliderModule, MatCardModule } from '@angular/material';
-import 'hammerjs';
+import { GestureConfig, MatButtonModule, MatSliderModule, MatCardModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 
 
 @NgModule({
@@ -17,9 +16,11 @@ import 'hammerjs';
       FormsModule,
       HttpModule,
       BrowserAnimationsModule,
-      MatButtonModule, MatCardModule, MatSliderModule
+      MatButtonModule, MatCardModule, MatSliderModule, MatFormFieldModule, MatInputModule
   ],
-  providers: [],
+  providers: [
+    { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

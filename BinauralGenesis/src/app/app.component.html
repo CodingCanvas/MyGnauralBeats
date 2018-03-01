@@ -1,38 +1,66 @@
-<h1 class="mat-display-3">Binaural Beat Generator</h1>
+<h2 class="mat-display-2">MyGnaural Beats</h2>
 <div mat-app-background>
-  <div id="leftEarDiv">
-    <span class="mat-body-1">Left ear frequency</span>
-    <!-- TODO: make a separate binaural slider class to clean this shit up! -->
-    <mat-slider class="leftEarFrequency"
-                max="400"
-                min="48"
-                step="0.1"
-                [(ngModel)]="leftFrequency">
-    </mat-slider>
-    <input type="number" [(ngModel)]="leftFrequency" min="1" max="400" placeholder="100" step="0.1" />
-  </div>
-  <div id="rightEarDiv">
-    <span class="mat-body-1">Right ear frequency</span>
-    <mat-slider class="rightEarFrequency"
-                max="400"
-                min="48"
-                step="0.1"
-                [(ngModel)]="rightFrequency">
-    </mat-slider>
-    <input type="number" [(ngModel)]="rightFrequency" min="1" max="400" placeholder="100" step=".1" />
-  </div>
-  <!-- TODO: Bind it to some function that updates on-the-fly, turns sound 'off' at zero volume. -->
-  <div id="volumeDiv">
-    <span class="mat-body-1">Volume</span>
-    <mat-slider class="volumeSlider"
-                max="100"
-                min="0"
-                title="Voluminous"
-                step="1"
-                [(ngModel)]="volumeLevel">
-    </mat-slider>
-    <input flex="" type="number" [(ngModel)]="volumeLevel" min="0" max="100" placeholder="0" step="1" />
-  </div>
 
-  <button mat-button id="button_PlayPause" (click)="playPause()">{{isPlaying ? "Pause" : "Play"}}</button>
+  <form class="binaural-beat-generator">
+    <mat-form-field class="left-ear">
+      <label class="mat-body-1">Left ear:</label>
+      <mat-slider class="leftEarFrequency"
+                  name="left-ear-slider"
+                  max="400"
+                  min="48"
+                  step="0.1"
+                  [(ngModel)]="leftFrequency">
+      </mat-slider>
+      <input matInput
+             name="left-ear-textbox"
+             type="number"
+             [(ngModel)]="leftFrequency"
+             min="1"
+             max="400"
+             step="0.1" />
+      <label class="mat-body-1">hz</label>
+    </mat-form-field>
+
+    <mat-form-field class="right-ear" name="right-ear-field">
+      <span class="mat-body-1">Right ear:</span>
+      <mat-slider class="rightEarFrequency"
+                  name="right-ear-slider"
+                  max="400"
+                  min="48"
+                  step="0.1"
+                  [(ngModel)]="rightFrequency">
+      </mat-slider>
+      <input matInput
+             name="right-ear-textbox"
+             type="number"
+             [(ngModel)]="rightFrequency"
+             min="1"
+             max="400"
+             step=".1" />
+      <label class="mat-body-1">hz</label>
+    </mat-form-field>
+    <!-- TODO: Bind it to some function that updates on-the-fly, turns sound 'off' at zero volume. -->
+    <mat-form-field id="volume">
+      <span class="mat-body-1">Volume</span>
+      <mat-slider class="volumeSlider"
+                  name="volume-slider"
+                  max="100"
+                  min="0"
+                  title="Voluminous"
+                  step="1"
+                  [(ngModel)]="volumeLevel"
+                  [ngModelOptions]="{ updateOn: 'change' }">
+      </mat-slider>
+      <input matInput type="number"
+             name="volume-textbox"
+             [(ngModel)]="volumeLevel"
+             min="0"
+             max="100"
+             step="1" />
+      <label class="mat-body-1">hz</label>
+    </mat-form-field>
+
+    <button mat-button id="button_PlayPause" (click)="playPause()">{{isPlaying ? "Pause" : "Play"}}</button>
+
+  </form>
 </div>

@@ -1,4 +1,4 @@
-﻿{
+{
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
     "name": "binaural-genesis"
@@ -51,6 +51,9 @@
     }
   },
   "defaults": {
+    "serve": {
+      "port": 42500
+    },
     "styleExt": "css",
     "component": {}
   }
