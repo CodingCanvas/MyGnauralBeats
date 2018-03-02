@@ -4,7 +4,7 @@ import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { GestureConfig, MatButtonModule, MatSliderModule, MatCardModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import { GestureConfig, MatButtonModule, MatSliderModule, MatCardModule, MatFormFieldModule, MatInputModule, MatGridListModule } from '@angular/material';
 
 
 @NgModule({
@@ -15,8 +15,8 @@ import { GestureConfig, MatButtonModule, MatSliderModule, MatCardModule, MatForm
       BrowserModule,
       FormsModule,
       HttpModule,
-      BrowserAnimationsModule,
-      MatButtonModule, MatCardModule, MatSliderModule, MatFormFieldModule, MatInputModule
+    BrowserAnimationsModule,
+    MatButtonModule, MatCardModule, MatSliderModule, MatFormFieldModule, MatInputModule, MatGridListModule
   ],
   providers: [
     { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }
