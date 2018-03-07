@@ -1,11 +1,11 @@
 <div mat-app-background>
-  <mat-grid-list cols="2" rowHeight="50px" class="app-form">
-    <mat-grid-tile colspan="2" rowspan="2">
+  <mat-grid-list cols="3" rowHeight="45px" class="app-form">
+    <mat-grid-tile colspan="3" rowspan="2">
       <span class="mat-display-1">MyGnaural Beats</span>
     </mat-grid-tile>
-    <mat-grid-tile>
-      <span matPrefix class="mat-body-1">Left Ear</span>
-      <mat-slider class="leftEarFrequency"
+    <mat-grid-tile colspan="2">
+      <span matPrefix class="slider-prefix mat-body-1">Left Ear</span>
+      <mat-slider class="slider-input"
                   name="left-ear-slider"
                   max="400"
                   min="48"
@@ -14,8 +14,8 @@
       </mat-slider>
     </mat-grid-tile>
     <mat-grid-tile>
-      <mat-form-field class="binaural-slider" name="left-ear-field">
-        <input matInput class="number-input"
+      <mat-form-field class="number-input" name="left-ear-field">
+        <input matInput
                name="left-ear-textbox"
                type="number"
                [(ngModel)]="leftFrequency"
@@ -26,9 +26,9 @@
       </mat-form-field>
     </mat-grid-tile>
 
-    <mat-grid-tile>
-      <span matPrefix class="mat-body-1">Right Ear</span>
-      <mat-slider class="rightEarFrequency"
+    <mat-grid-tile colspan="2">
+      <span matPrefix class="slider-prefix mat-body-1">Right Ear</span>
+      <mat-slider class="slider-input"
                   name="right-ear-slider"
                   max="400"
                   min="48"
@@ -37,8 +37,8 @@
       </mat-slider>
     </mat-grid-tile>
     <mat-grid-tile>
-      <mat-form-field class="binaural-slider" name="right-ear-field">
-        <input matInput class="number-input"
+      <mat-form-field class="number-input" name="right-ear-field">
+        <input matInput
                name="right-ear-textbox"
                type="number"
                [(ngModel)]="rightFrequency"
@@ -49,21 +49,20 @@
       </mat-form-field>
     </mat-grid-tile>
 
-    <mat-grid-tile>
-      <span matPrefix class="mat-body-1">Volume</span>
-      <mat-slider class="volumeSlider"
-                  name="volume-slider"
-                  max="100"
-                  min="0"
-                  title="Voluminous"
-                  step="1"
-                  [(ngModel)]="volumeLevel"
-                  [ngModelOptions]="{ updateOn: 'change' }">
-      </mat-slider>
+    <mat-grid-tile colspan="2">
+        <span matPrefix class="slider-prefix mat-body-1">Volume</span>
+        <mat-slider class="slider-input"
+                    name="volume-slider"
+                    max="100"
+                    min="0"
+                    step="1"
+                    [(ngModel)]="volumeLevel"
+                    [ngModelOptions]="{ updateOn: 'change' }">
+        </mat-slider>
     </mat-grid-tile>
     <mat-grid-tile>
-      <mat-form-field class="binaural-slider" name="volume-field">
-        <input matInput class="number-input"
+      <mat-form-field class="number-input" name="volume-field">
+        <input matInput
                name="volume-textbox"
                type="number"
                [(ngModel)]="volumeLevel"
@@ -73,7 +72,7 @@
         <span matSuffix>%</span>
       </mat-form-field>
     </mat-grid-tile>
-    <mat-grid-tile colspan="2">
+    <mat-grid-tile colspan="3">
       <button mat-button id="button_PlayPause" (click)="playPause()">{{isPlaying ? "Pause" : "Play"}}</button>
     </mat-grid-tile>
   </mat-grid-list>

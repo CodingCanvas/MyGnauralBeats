@@ -17,47 +17,65 @@ export class AppComponent implements OnInit {
   leftFrequency: number = 100.0;
   rightFrequency: number = 107.83;
 
-  volumeRampUp: number = 0.25;
-  volumeRampDown: number = 0.1;
+  private volumeRampUp: number = 0.25;
+  private volumeRampDown: number = 0.1;
 
-  audioContext: AudioContext;
-  leftOscillator: OscillatorNode;
-  rightOscillator: OscillatorNode;
-  merger: ChannelMergerNode;
-  gain: GainNode;
+  private audioContext: AudioContext;
+  private leftOscillator: OscillatorNode;
+  private rightOscillator: OscillatorNode;
+  private merger: ChannelMergerNode;
+  private gain: GainNode;
 
   ngOnInit() {
-    //Wire-up the audio path!
-    //merge two separate channels, merge them into stereo output,
-    //apply the gain-level to manage volume,
-    //and play!
-    this.audioContext = new AudioContext();
+    this.initializeAudioPipeline();
   }
 
-  hookUpAudio() {
-    //todo: any way to reuse audioNodes between starts and pauses?
-    this.leftOscillator = this.audioContext.createOscillator();
-    this.leftOscillator.frequency.setTargetAtTime(this.leftFrequency, 0, 0);
-
-    this.rightOscillator = this.audioContext.createOscillator();
-    this.rightOscillator.frequency.setTargetAtTime(this.rightFrequency, 0, 0);
+  initializeAudioPipeline() {
+    this.audioContext = new AudioContext();
 
     this.merger = this.audioContext.createChannelMerger(2);
+    this.gain = this.audioContext.createGain();
 
-    //Put left-channel into left ear, right-channel into right ear.
+    this.merger.connect(this.gain);
+    this.gain.connect(this.audioContext.destination);
+  }
+
+  updateFrequencyAndVolume() {
+    //note: oscillators can only be started once, so we need to re-create & recconnect them every time.  Lame.
+    this.connectBinauralOscillators();
+
     this.leftOscillator.connect(this.merger, 0, 0);
     this.rightOscillator.connect(this.merger, 0, 1);
 
     var safeVolume: number = Math.min((this.volumeLevel / 100), 1); //Don't allow crazy effin' volumes.
 
-    this.gain = this.audioContext.createGain();
     this.gain.gain.setValueAtTime(0, this.audioContext.currentTime);
     this.gain.gain.setTargetAtTime(safeVolume, this.audioContext.currentTime + this.volumeRampUp, 0.5);
-    //this.gain.gain.value = Math.min((this.volumeLevel / 100), 1); //Don't allow crazy fucking volumes.
+  }
 
-    this.merger.connect(this.gain);
+  private disconnectFromMerger(node: OscillatorNode, ev: MediaStreamErrorEvent): any {
+    node.disconnect(this.merger);
+  }
 
-    this.gain.connect(this.audioContext.destination);
+  private connectBinauralOscillators() {
+    //first, disconnect old oscillators
+    if (typeof this.leftOscillator !== "undefined") {
+      this.leftOscillator.disconnect(this.merger);
+      this.rightOscillator.disconnect(this.merger);
+
+      //todo: subscribe to "on stopped" event.  use that to disconnect oscillator nodes... possibly to prevent "play" from activating?  Using a blocking wait?!  WHAAA????
+      this.leftOscillator.onended = function () {
+        console.log("left oscillator stopped");
+      }
+      this.rightOscillator.onended = function () {
+        console.log("right oscillator stopped");
+      }
+    }
+
+    this.leftOscillator = this.audioContext.createOscillator();
+    this.rightOscillator = this.audioContext.createOscillator();
+    this.leftOscillator.frequency.setTargetAtTime(this.leftFrequency, 0, 0);
+    this.rightOscillator.frequency.setTargetAtTime(this.rightFrequency, 0, 0);
   }
 
   playPause() {
@@ -65,19 +83,23 @@ export class AppComponent implements OnInit {
 
     //if we need to play the audio
     if (this.isPlaying) {
-      //Todo: see if you can reuse AudioNodes instead of bothering garbage collection.
-      this.hookUpAudio();
+      this.updateFrequencyAndVolume();
       this.leftOscillator.start();
       this.rightOscillator.start();
     }
+
     //if we need to pause the audio
     else {
       var currentTime = this.audioContext.currentTime;
       var stopTime = currentTime + 1;
 
-      this.gain.gain.setTargetAtTime(0, currentTime, this.volumeRampDown);
-      this.leftOscillator.stop(stopTime)
-      this.rightOscillator.stop(stopTime);
+      this.StopAudio(currentTime, stopTime);
     }
+  }
+
+  private StopAudio(currentTime: number, stopTime: number) {
+    this.gain.gain.setTargetAtTime(0, currentTime, this.volumeRampDown);
+    this.leftOscillator.stop(stopTime);
+    this.rightOscillator.stop(stopTime);
   }
 }

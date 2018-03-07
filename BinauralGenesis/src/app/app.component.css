@@ -1,6 +1,15 @@
 .app-form {
-  width: 500px;
+  width: 400px;
   height: auto;
-  grid-auto-flow: dense;
-  position: center;
+  margin: 30px auto;
+}
+
+.number-input {
+  width: 80px;
+}
+
+.slider-prefix {
+  width: 60px;
+  text-align: right;
+  padding-right: 5px;
 }
