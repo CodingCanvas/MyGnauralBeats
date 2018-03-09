@@ -59,17 +59,10 @@ export class AppComponent implements OnInit {
 
   private connectBinauralOscillators() {
     //first, disconnect old oscillators
+    //todo: any way to programatically verify that things got disconnected and made available to garbage collection?
     if (typeof this.leftOscillator !== "undefined") {
       this.leftOscillator.disconnect(this.merger);
       this.rightOscillator.disconnect(this.merger);
-
-      //todo: subscribe to "on stopped" event.  use that to disconnect oscillator nodes... possibly to prevent "play" from activating?  Using a blocking wait?!  WHAAA????
-      this.leftOscillator.onended = function () {
-        console.log("left oscillator stopped");
-      }
-      this.rightOscillator.onended = function () {
-        console.log("right oscillator stopped");
-      }
     }
 
     this.leftOscillator = this.audioContext.createOscillator();
@@ -79,6 +72,8 @@ export class AppComponent implements OnInit {
   }
 
   playPause() {
+    //TODO: try keeping everything started at all times.
+    //"Pausing" simply sets gain to 0, playing sets it to 'volumeLevel'... normalized for hearing safety, of course.
     this.isPlaying = !this.isPlaying;
 
     //if we need to play the audio
