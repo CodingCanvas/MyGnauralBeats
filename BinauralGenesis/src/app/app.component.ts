@@ -41,13 +41,17 @@ export class AppComponent implements OnInit {
   }
 
   updateFrequencyAndVolume() {
+    //Used to reduce overall gain range from 0->1 to 0->N.  For hearing safety.
+    const volumeScalingFactor: number = 0.33;
+
     //note: oscillators can only be started once, so we need to re-create & recconnect them every time.  Lame.
     this.connectBinauralOscillators();
 
     this.leftOscillator.connect(this.merger, 0, 0);
     this.rightOscillator.connect(this.merger, 0, 1);
 
-    var safeVolume: number = Math.min((this.volumeLevel / 100), 1); //Don't allow crazy effin' volumes.
+
+    var safeVolume: number = Math.min((this.volumeLevel / 100) * volumeScalingFactor, 1); //Don't allow crazy effin' volumes.
 
     this.gain.gain.setValueAtTime(0, this.audioContext.currentTime);
     this.gain.gain.setTargetAtTime(safeVolume, this.audioContext.currentTime + this.volumeRampUp, 0.5);
@@ -59,7 +63,6 @@ export class AppComponent implements OnInit {
 
   private connectBinauralOscillators() {
     //first, disconnect old oscillators
-    //todo: any way to programatically verify that things got disconnected and made available to garbage collection?
     if (typeof this.leftOscillator !== "undefined") {
       this.leftOscillator.disconnect(this.merger);
       this.rightOscillator.disconnect(this.merger);
