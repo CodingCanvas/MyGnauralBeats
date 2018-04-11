@@ -2,6 +2,23 @@
   width: 400px;
   height: auto;
   margin: 30px auto;
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 8px 16px;
+    color: white;
+    height: 4em;
+    background: #3f51b5;
+  }
+
+  .input {
+  }
+
+  .title {
+    background-color: tomato;
+  }
 }
 
 .number-input {
@@ -9,7 +26,11 @@
 }
 
 .slider-prefix {
-  width: 60px;
   text-align: right;
   padding-right: 5px;
 }
+
+
+/*#background {
+  background-color: transparent;
+}*/
