@@ -1,0 +1,38 @@
+//@import '~@angular/material/theming';
+
+.app-form {
+  width: 350px;
+  margin: 15px auto 0px auto;
+  padding: unset;
+
+  .title {
+    background-color: green;
+  }
+
+  .card-title {
+    padding: 12px 0px;
+  }
+
+  .mat-display-1 {
+    margin: unset;
+  }
+
+  .row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: space-between;
+    align-items: center;
+    height: auto;
+
+    .number-input {
+      width: 80px;
+      height: 50px;
+      padding: 15px;
+    }
+
+    .slider-input{
+      width: 128px;
+    }
+  }
+}

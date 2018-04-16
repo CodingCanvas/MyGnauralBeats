@@ -1,41 +1,99 @@
-<h1>Binaural Beat Generator</h1>
-<div mat-app-background>
-  <div id="leftEarDiv">
-    <label>Left ear frequency</label>
-    <!-- TODO: make a separate binaural slider class to clean this shit up! -->
-    <mat-slider class="leftEarFrequency"
-               max="400"
-               min="48"
-               step="0.1"
-               [(ngModel)]="leftFrequency">
-    </mat-slider>
-    <input type="number" [(ngModel)]="leftFrequency" min="1" max="400" placeholder="100" step="0.1" />
-    <label>{{leftFrequency}}hz</label>
-  </div>
-  <div id="rightEarDiv">
-    <label>Right ear frequency</label>
-    <mat-slider class="rightEarFrequency"
-               max="400"
-               min="48"
-               step="0.1"
-               [(ngModel)]="rightFrequency">
-    </mat-slider>
-    <input type="number" [(ngModel)]="rightFrequency" min="1" max="400" placeholder="100" step=".1" />
-    <label>{{rightFrequency}}hz</label>
-  </div>
-  <!-- TODO: Bind it to some function that updates on-the-fly, turns sound 'off' at zero volume. -->
-  <div id="volumeDiv">
-    <label>Volume Level</label>
-    <mat-slider class="volumeSlider"
-               max="100"
-               min="0"
-               title="Voluminous"
-               step="1"
-               [(ngModel)]="volumeLevel">
-    </mat-slider>
-    <input type="number" [(ngModel)]="volumeLevel" min="0" max="100" placeholder="0" step="1" />
-    <label>{{volumeLevel}}%</label>
+<mat-card class="app-form">
+  <div fxLayout class="row title">
+    <div fxFlex fxLayoutAlign="center center" class="bob">
+      <span class="card-title mat-display-1">MyGnaural Beats</span>
+    </div>
   </div>
 
-  <button mat-button id="button_PlayPause" (click)="playPause()">{{isPlaying ? "Pause" : "Play"}}</button>
-</div>
+  <mat-card-content>
+    <div fxLayout class="input row">
+      <div fxFlex="20%" fxLayoutAlign="end center">
+        <span matPrefix class="mat-body-1">Left Ear</span>
+      </div>
+      <div fxFlex fxLayoutAlign="center center">
+        <mat-slider class="slider-input"
+                    name="left-ear-slider"
+                    max="400"
+                    min="48"
+                    step="0.1"
+                    thumb-label="true"
+                    [(ngModel)]="leftFrequency">
+        </mat-slider>
+      </div>
+
+      <div fxLayoutAlign="center center">
+        <mat-form-field class="number-input" name="left-ear-field">
+          <input matInput
+                 name="left-ear-textbox"
+                 type="number"
+                 min="1"
+                 max="400"
+                 step="0.1"
+                 [(ngModel)]="leftFrequency" />
+          <span matSuffix>hz</span>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayout class="input row">
+      <div fxFlex="20%" fxLayoutAlign="end center">
+        <span matPrefix class="mat-body-1">Right Ear</span>
+      </div>
+      <div fxFlex fxLayoutAlign="center center">
+        <mat-slider class="slider-input"
+                    name="right-ear-slider"
+                    max="400"
+                    min="48"
+                    step="0.1"
+                    thumb-label="true"
+                    [(ngModel)]="rightFrequency">
+        </mat-slider>
+      </div>
+
+      <div fxLayoutAlign="end center">
+        <mat-form-field class="number-input" name="right-ear-field">
+          <input matInput
+                 name="right-ear-textbox"
+                 type="number"
+                 [(ngModel)]="rightFrequency"
+                 min="1"
+                 max="400"
+                 step=".1" />
+          <span matSuffix>hz</span>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="input row">
+      <div fxFlex="20%" fxLayoutAlign="end center">
+        <span matPrefix class="mat-body-1">Volume</span>
+      </div>
+      <div fxFlex fxLayoutAlign="center center">
+        <mat-slider class="slider-input"
+                    name="volume-slider"
+                    max="100"
+                    min="0"
+                    step="1"
+                    thumb-label="true"
+                    [(ngModel)]="volumeLevel">
+        </mat-slider>
+      </div>
+      <div fxLayoutAlign="end center">
+        <mat-form-field class="number-input" name="volume-field">
+          <input matInput
+                 name="volume-textbox"
+                 type="number"
+                 [(ngModel)]="volumeLevel"
+                 min="0"
+                 max="100"
+                 step="1" />
+          <span matSuffix>%</span>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxFlex fxLayoutAlign="center center" class="button row">
+      <button mat-button class="mat-button-raised" id="button_PlayPause" (click)="playPause()">{{isPlaying ? "Pause" : "Play"}}</button>
+    </div>
+  </mat-card-content>
+</mat-card>

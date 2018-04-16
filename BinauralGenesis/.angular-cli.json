@@ -1,4 +1,4 @@
-﻿{
+{
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
     "name": "binaural-genesis"
@@ -19,7 +19,8 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.css"
+        "styles.scss",
+        "app/custom-theme.scss"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
@@ -51,7 +52,10 @@
     }
   },
   "defaults": {
-    "styleExt": "css",
+    "serve": {
+      "port": 42500
+    },
+    "styleExt": "scss",
     "component": {}
   }
 }
