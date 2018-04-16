@@ -1,72 +1,56 @@
-<div mat-app-background id="background">
-
-  <!--<div class="container"
-       fxLayout
-       fxLayout.xs="column"
-       fxLayoutAlign="center"
-       fxLayoutGap="10px"
-       fxLayoutGap.xs="0">
-    <div class="item item-1" fxFlex="15%">Item 1</div>
-    <div class="item item-2" fxFlex="20%" fxFlexOrder="3">Item 2</div>
-    <div class="item item-3" fxFlex>Item 3</div>
+<mat-card class="app-form">
+  <div fxLayout class="row title">
+    <div fxFlex fxLayoutAlign="center center" class="bob">
+      <span class="card-title mat-display-1">MyGnaural Beats</span>
+    </div>
   </div>
 
-  <div class="container"
-       fxLayout
-       fxLayout.xs="column"
-       fxLayoutAlign="center"
-       fxLayoutGap="10px"
-       fxLayoutGap.xs="0">
-    <div class="item item-4" fxFlex fxFlexOffset="50px" fxFlexOffset.xs="0">Item 4</div>
-    <div class="item item-5" fxFlex="200px">Item 5</div>
-  </div>-->
-
-  <div class="app-form">
-    <div fxLayout fxLayout.xs="column" fxLayoutAlign="center " class="title row">
-      <span class="mat-display-1">MyGnaural Beats</span>
-    </div>
-
-    <div fxLayout fxLayout.xs="row" fxLayoutAlign="start center" class="input row">
-
-      <div fxFlex="60%">
-        <span matPrefix class="slider-prefix mat-body-1">Left Ear</span>
+  <mat-card-content>
+    <div fxLayout class="input row">
+      <div fxFlex="20%" fxLayoutAlign="end center">
+        <span matPrefix class="mat-body-1">Left Ear</span>
+      </div>
+      <div fxFlex fxLayoutAlign="center center">
         <mat-slider class="slider-input"
                     name="left-ear-slider"
                     max="400"
                     min="48"
                     step="0.1"
+                    thumb-label="true"
                     [(ngModel)]="leftFrequency">
         </mat-slider>
       </div>
 
-      <div fxFlex>
+      <div fxLayoutAlign="center center">
         <mat-form-field class="number-input" name="left-ear-field">
           <input matInput
                  name="left-ear-textbox"
                  type="number"
-                 [(ngModel)]="leftFrequency"
                  min="1"
                  max="400"
-                 step="0.1" />
+                 step="0.1"
+                 [(ngModel)]="leftFrequency" />
           <span matSuffix>hz</span>
         </mat-form-field>
       </div>
     </div>
 
-    <div fxLayout fxLayout.xs="row" fxLayoutAlign="start" class="input row">
-
-      <div fxFlex="60%">
-        <span matPrefix class="slider-prefix mat-body-1">Right Ear</span>
+    <div fxLayout class="input row">
+      <div fxFlex="20%" fxLayoutAlign="end center">
+        <span matPrefix class="mat-body-1">Right Ear</span>
+      </div>
+      <div fxFlex fxLayoutAlign="center center">
         <mat-slider class="slider-input"
                     name="right-ear-slider"
                     max="400"
                     min="48"
                     step="0.1"
+                    thumb-label="true"
                     [(ngModel)]="rightFrequency">
         </mat-slider>
       </div>
 
-      <div fxFlex="40%">
+      <div fxLayoutAlign="end center">
         <mat-form-field class="number-input" name="right-ear-field">
           <input matInput
                  name="right-ear-textbox"
@@ -81,18 +65,20 @@
     </div>
 
     <div class="input row">
-      <div fxFlex="60%">
-        <span matPrefix class="slider-prefix mat-body-1">Volume</span>
+      <div fxFlex="20%" fxLayoutAlign="end center">
+        <span matPrefix class="mat-body-1">Volume</span>
+      </div>
+      <div fxFlex fxLayoutAlign="center center">
         <mat-slider class="slider-input"
                     name="volume-slider"
                     max="100"
                     min="0"
                     step="1"
-                    [(ngModel)]="volumeLevel"
-                    [ngModelOptions]="{ updateOn: 'change' }">
+                    thumb-label="true"
+                    [(ngModel)]="volumeLevel">
         </mat-slider>
       </div>
-      <div fxFlex="40%">
+      <div fxLayoutAlign="end center">
         <mat-form-field class="number-input" name="volume-field">
           <input matInput
                  name="volume-textbox"
@@ -106,8 +92,8 @@
       </div>
     </div>
 
-    <div fxLayout.xs="column" fxLayoutAlign="end" class="button row">
-      <button fxFlex mat-button id="button_PlayPause" (click)="playPause()">{{isPlaying ? "Pause" : "Play"}}</button>
+    <div fxFlex fxLayoutAlign="center center" class="button row">
+      <button mat-button class="mat-button-raised" id="button_PlayPause" (click)="playPause()">{{isPlaying ? "Pause" : "Play"}}</button>
     </div>
-  </div>
-</div>
+  </mat-card-content>
+</mat-card>

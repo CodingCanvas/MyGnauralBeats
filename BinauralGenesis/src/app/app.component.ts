@@ -40,6 +40,8 @@ export class AppComponent implements OnInit {
     this.gain.connect(this.audioContext.destination);
   }
 
+
+
   updateFrequencyAndVolume() {
     //Used to reduce overall gain range from 0->1 to 0->N.  For hearing safety.
     const volumeScalingFactor: number = 0.33;
