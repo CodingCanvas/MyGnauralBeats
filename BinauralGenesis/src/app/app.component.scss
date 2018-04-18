@@ -2,11 +2,10 @@
 
 .app-form {
   width: 350px;
-  margin: 15px auto 0px auto;
-  padding: unset;
+  margin: 15px auto 15px auto;
+  padding: 15px;
 
   .title {
-    background-color: green;
   }
 
   .card-title {
@@ -14,7 +13,7 @@
   }
 
   .mat-display-1 {
-    margin: unset;
+    margin: 0px auto 10px auto;
   }
 
   .row {
@@ -28,7 +27,6 @@
     .number-input {
       width: 80px;
       height: 50px;
-      padding: 15px;
     }
 
     .slider-input{
