@@ -1,8 +1,20 @@
 //@import '~@angular/material/theming';
 
+.binaural-beat-preset-form {
+  width: 350px; //TODO: set variable for all forms
+  margin: 15px auto;
+  padding: 15px;
+}
+
+.binaural-beat-description-form{
+  width:350px;
+  margin: 15px auto;
+  padding: 15px;
+}
+
 .app-form {
   width: 350px;
-  margin: 15px auto 15px auto;
+  margin: 15px auto;
   padding: 15px;
 
   .title {
@@ -29,7 +41,7 @@
       height: 50px;
     }
 
-    .slider-input{
+    .slider-input {
       width: 128px;
     }
   }

@@ -40,7 +40,20 @@ export class AppComponent implements OnInit {
     this.gain.connect(this.audioContext.destination);
   }
 
+  getBinauralFrequency(): number {
+    return Math.abs(this.leftFrequency - this.rightFrequency);
+  }
+  
+  updateOnDrag(leftFrequency: number, rightFrequency: number, volume: number) {
+    if (!(leftFrequency === undefined))
+      this.leftFrequency = leftFrequency;
 
+    if (!(rightFrequency === undefined))
+      this.rightFrequency = rightFrequency;
+
+    if (!(volume === undefined))
+      this.volumeLevel = volume;
+  }
 
   updateFrequencyAndVolume() {
     //Used to reduce overall gain range from 0->1 to 0->N.  For hearing safety.
