@@ -7,11 +7,11 @@
 
   <div fxFlex fxLayoutAlign="space-around center">
     <!-- Placeholder buttons.  Use ngFor* instead -->
-    <button mat-fab>1.5hz</button>
-    <button mat-fab>7.86hz</button>
-    <button mat-fab>13.1hz</button>
-    <button mat-fab>18.3hz</button>
-    <button mat-fab>ngFor*</button>
+    <button mat-fab color="primary">1.5hz</button>
+    <button mat-fab color="primary">7.86hz</button>
+    <button mat-fab color="primary">13.1hz</button>
+    <button mat-fab color="primary">18.3hz</button>
+    <button mat-fab color="primary">ngFor*</button>
   </div>
 
   <div fxLayout class="input row">
@@ -40,7 +40,7 @@
                max="400"
                step="0.1"
                [ngModel]="leftFrequency | number:'1.2-2'"
-               (ngModelChange)="leftFrequency=$event"/>
+               (ngModelChange)="leftFrequency=$event" />
         <span matSuffix>hz</span>
       </mat-form-field>
     </div>
@@ -72,7 +72,7 @@
                max="400"
                step=".1"
                [ngModel]="rightFrequency | number:'1.2-2'"
-               (ngModelChange)="rightFrequency=$event"/>
+               (ngModelChange)="rightFrequency=$event" />
         <span matSuffix>hz</span>
       </mat-form-field>
     </div>
@@ -110,11 +110,17 @@
 
   <div fxFlex fxLayoutAlign="center center" class="button row">
     <div fxFlex>
-      <button mat-raised-button id="button_PlayPause" color="primary" (click)="playPause()">{{isPlaying ? "Pause" : "Play"}}</button>
+      <button mat-raised-button id="button_PlayPause"
+              color="primary"
+              (click)="playPause()"
+              [disabled]="volume <= 0">
+        <span>{{isPlaying ? "Pause" : "Play"}}</span>
+        <mat-divider [inset]="true"></mat-divider>
+        <span>{{getBinauralFrequency() | number:'1.2-2'}}hz</span>
+      </button>
     </div>
-    <div fxFlex>
-      <span mat-body-1>Perceived Frequency: {{getBinauralFrequency() | number:'1.2-2'}}hz</span>
-    </div>
+    <div fxFlex><mat-divider [vertical]="true"></mat-divider></div>
+    <div fxFlex><span mat-body-1>Perceived Frequency: {{getBinauralFrequency() | number:'1.2-2'}}hz</span></div>
   </div>
 </mat-card>
 

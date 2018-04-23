@@ -7,6 +7,14 @@ import { Http } from '@angular/http'
   styleUrls: ['./app.component.scss']
 })
 
+//export class BB_Description {
+//  frequencyMin: number;
+//  frequencyMax: number;
+
+//  label: string;
+//  description: string;
+//}
+
 export class AppComponent implements OnInit {
   constructor(private _httpService: Http) {
 
@@ -115,4 +123,6 @@ export class AppComponent implements OnInit {
     this.leftOscillator.stop(stopTime);
     this.rightOscillator.stop(stopTime);
   }
+
+  getBeatInformation(): string { return "The jews did it"; }
 }

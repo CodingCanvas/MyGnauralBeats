@@ -1,5 +1,5 @@
 import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
-import { GestureConfig, MatButtonModule, MatSliderModule, MatCardModule, MatFormFieldModule, MatInputModule, MatSidenavModule } from '@angular/material';
+import { GestureConfig, MatButtonModule, MatSliderModule, MatCardModule, MatFormFieldModule, MatInputModule, MatSidenavModule, MatDividerModule } from '@angular/material';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
@@ -18,7 +18,7 @@ import { DecimalPipe } from '@angular/common';
     HttpModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
-    MatButtonModule, MatCardModule, MatSliderModule, MatFormFieldModule, MatInputModule, MatSidenavModule, MatCardModule
+    MatButtonModule, MatCardModule, MatSliderModule, MatFormFieldModule, MatInputModule, MatSidenavModule, MatCardModule, MatDividerModule
   ],
   providers: [
     { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }
