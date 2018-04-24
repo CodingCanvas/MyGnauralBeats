@@ -6,8 +6,8 @@
   padding: 15px;
 }
 
-.binaural-beat-description-form{
-  width:350px;
+.binaural-beat-description-form {
+  width: 350px;
   margin: 15px auto;
   padding: 15px;
 }
@@ -16,6 +16,13 @@
   width: 350px;
   margin: 15px auto;
   padding: 15px;
+
+  .top-right-corner {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    text-align: center;
+  }
 
   .title {
   }

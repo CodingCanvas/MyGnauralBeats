@@ -1,4 +1,5 @@
 <mat-card class="app-form">
+  <a><mat-icon class="top-right-corner" [matTooltip]="helpDescription">info</mat-icon></a>
   <div fxLayout class="row title">
     <div fxFlex fxLayoutAlign="center center" class="bob">
       <span class="card-title mat-display-1" color="primary">MyGnaural Beats</span>
@@ -108,19 +109,15 @@
     </div>
   </div>
 
-  <div fxFlex fxLayoutAlign="center center" class="button row">
-    <div fxFlex>
-      <button mat-raised-button id="button_PlayPause"
-              color="primary"
-              (click)="playPause()"
-              [disabled]="volume <= 0">
-        <span>{{isPlaying ? "Pause" : "Play"}}</span>
-        <mat-divider [inset]="true"></mat-divider>
-        <span>{{getBinauralFrequency() | number:'1.2-2'}}hz</span>
-      </button>
-    </div>
-    <div fxFlex><mat-divider [vertical]="true"></mat-divider></div>
-    <div fxFlex><span mat-body-1>Perceived Frequency: {{getBinauralFrequency() | number:'1.2-2'}}hz</span></div>
+  <div fxFlex fxLayoutAlign="center center">
+    <button mat-raised-button id="button_PlayPause"
+            color="accent"
+            (click)="playPause()"
+            matTooltip="Headphone Required">
+      <mat-icon>headset</mat-icon>
+      <span>{{isPlaying ? "Pause" : "Play"}}</span>
+    </button>
+    <!--<div fxFlex><span mat-body-1>Perceived Frequency: {{getBinauralFrequency() | number:'1.2-2'}}hz</span></div>-->
   </div>
 </mat-card>
 

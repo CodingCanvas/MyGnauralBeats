@@ -20,6 +20,14 @@ export class AppComponent implements OnInit {
 
   }
 
+  helpDescription: string =
+  `Binaural Beat are an auditory illusion caused by playing two tones of slightly different frequency.
+  When listened to with headphones, the mind interprets it as a single rhythmic tone at a frequency identical
+  to the difference in the two tone's frequencies.  This illusion is thought to change the predominant neural frequency
+  of the mind (delta, theta, beta, gamma) in a way that might impact one's state of mind.
+  Popular for those looking to enhance focus, relaxation, or at least harness the placebo effect to their advantage.
+  Read more about it at https://en.wikipedia.org/wiki/Beat_(acoustics)#Binaural_beats`;
+
   isPlaying: boolean = false;
   volumeLevel: number = 0;
   leftFrequency: number = 100.0;
