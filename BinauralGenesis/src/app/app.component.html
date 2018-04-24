@@ -8,11 +8,13 @@
 
   <div fxFlex fxLayoutAlign="space-around center">
     <!-- Placeholder buttons.  Use ngFor* instead -->
-    <button mat-fab color="primary">1.5hz</button>
-    <button mat-fab color="primary">7.86hz</button>
-    <button mat-fab color="primary">13.1hz</button>
-    <button mat-fab color="primary">18.3hz</button>
-    <button mat-fab color="primary">ngFor*</button>
+    <button mat-fab
+            *ngFor="let preset of beatPresets"
+            color="primary"
+            (click)="applyBinauralPreset(preset[0], preset[1])">
+      {{preset[1] - preset[0] | number:'1.0-2'}}Hz
+    </button>
+
   </div>
 
   <div fxLayout class="input row">
@@ -26,7 +28,6 @@
                   max="400"
                   min="48"
                   step="0.1"
-                  thumb-label="true"
                   (input)="updateOnDrag($event.value, undefined, undefined)"
                   [(ngModel)]="leftFrequency">
       </mat-slider>
@@ -58,7 +59,6 @@
                   max="400"
                   min="48"
                   step="0.1"
-                  thumb-label="true"
                   (input)="updateOnDrag(undefined, $event.value, undefined)"
                   [(ngModel)]="rightFrequency">
       </mat-slider>
@@ -90,7 +90,6 @@
                   max="100"
                   min="0"
                   step="1"
-                  thumb-label="true"
                   (input)="updateOnDrag(undefined, undefined, $event.value)"
                   [(ngModel)]="volumeLevel">
       </mat-slider>
@@ -119,6 +118,7 @@
     </button>
     <!--<div fxFlex><span mat-body-1>Perceived Frequency: {{getBinauralFrequency() | number:'1.2-2'}}hz</span></div>-->
   </div>
+  
 </mat-card>
 
 <mat-card class="binaural-beat-description-form">

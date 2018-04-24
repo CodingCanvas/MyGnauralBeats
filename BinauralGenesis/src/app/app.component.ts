@@ -33,6 +33,8 @@ export class AppComponent implements OnInit {
   leftFrequency: number = 100.0;
   rightFrequency: number = 107.83;
 
+  beatPresets: Array<[number, number]> = [[120, 121.5], [100, 107.86], [140, 153.4], [130,158], [140, 180]];
+
   private volumeRampUp: number = 0.25;
   private volumeRampDown: number = 0.1;
 
@@ -69,6 +71,11 @@ export class AppComponent implements OnInit {
 
     if (!(volume === undefined))
       this.volumeLevel = volume;
+  }
+
+  applyBinauralPreset(leftFrequency: number, rightFrequency: number) {
+    this.leftFrequency = leftFrequency;
+    this.rightFrequency = rightFrequency;
   }
 
   updateFrequencyAndVolume() {
