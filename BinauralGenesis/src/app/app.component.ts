@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http'
+import { Range } from '@angular/core/src/profile/wtf_impl';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +22,7 @@ export class AppComponent implements OnInit {
   }
 
   helpDescription: string =
-  `Binaural Beats are an auditory illusion caused by playing two tones of slightly different frequency.
+    `Binaural Beats are an auditory illusion caused by playing two tones of slightly different frequency.
   When listened to with headphones, the mind interprets it as a single rhythmic tone at a frequency identical
   to the difference in the two tone's frequencies.  This illusion is thought to change the predominant neural frequency
   of the mind (delta, theta, beta, gamma) in a way that might impact one's state of mind.
@@ -33,8 +34,29 @@ export class AppComponent implements OnInit {
   leftFrequency: number = 100.0;
   rightFrequency: number = 107.83;
 
-  beatPresets: Array<[number, number]> = [[120, 121.5], [100, 107.86], [140, 153.4], [130,158], [140, 180]];
+  beatPresets: Array<[number, number]> = [
+    [120, 121.5],
+    [100, 107.83],
+    [140, 153.4],
+    [130, 158],
+    [140, 180]];
 
+  //[Name, inclusive lower bound, exclusive upper bound, description]
+  beatDescriptions: Array<[string, number, number, string]> = [
+    ["Delta", 0, 4,
+      "Occurs especially during deep sleep."],
+    ["Theta", 4, 8,
+      "Occurs during states of deep relaxation."],
+    ["Alpha", 8, 12,
+      "Occurs during states of relaxed wakefulness."],
+    ["Beta", 12, 40,
+      "Occurs during states of wakefulness.  Associated states of alertness, problem-solving, or anxiety and stress."],
+    ["Gamma", 40, 100,
+      "Gamma is associated with states of intense focus, absorbing new information, fear, and hypervigilance."],
+    ["Invalid", 100, 10000,
+      "Don't put this into your brain."]
+  ];
+  
   private volumeRampUp: number = 0.25;
   private volumeRampDown: number = 0.1;
 
@@ -58,10 +80,20 @@ export class AppComponent implements OnInit {
     this.gain.connect(this.audioContext.destination);
   }
 
+  getFrequencyDescription(): [string, number, number, string] {
+    let currentFrequency: number = this.getBinauralFrequency();
+    let iTitle: number = 0;
+    let iLowerBound: number = 1;
+    let iUpperBound: number = 2;
+    let iDescription: number = 4;
+
+    return this.beatDescriptions.find(x => x[iLowerBound] <= currentFrequency && x[iUpperBound] > currentFrequency);
+  }
+
   getBinauralFrequency(): number {
     return Math.abs(this.leftFrequency - this.rightFrequency);
   }
-  
+
   updateOnDrag(leftFrequency: number, rightFrequency: number, volume: number) {
     if (!(leftFrequency === undefined))
       this.leftFrequency = leftFrequency;

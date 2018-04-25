@@ -1,20 +1,9 @@
 //@import '~@angular/material/theming';
-
-.binaural-beat-preset-form {
-  width: 350px; //TODO: set variable for all forms
-  margin: 15px auto;
-  padding: 15px;
-}
-
-.binaural-beat-description-form {
-  width: 350px;
-  margin: 15px auto;
-  padding: 15px;
-}
+$formWidth: 350px;
 
 .app-form {
-  width: 350px;
-  margin: 15px auto;
+  width: $formWidth;
+  margin: 15px auto 7.5px auto;
   padding: 15px;
 
   .top-right-corner {
@@ -22,9 +11,6 @@
     top: 10px;
     right: 10px;
     text-align: center;
-  }
-
-  .title {
   }
 
   .card-title {
@@ -52,4 +38,10 @@
       width: 128px;
     }
   }
+}
+
+.binaural-beat-description-form {
+  width: $formWidth;
+  margin: 7.5px auto 0px auto;
+  padding: 15px;
 }

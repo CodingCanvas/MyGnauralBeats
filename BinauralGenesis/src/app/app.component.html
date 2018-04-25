@@ -81,6 +81,12 @@
 
   <div class="input row">
     <div fxFlex="20%" fxLayoutAlign="end center">
+      <a>
+        <mat-icon matTooltip="Choose a low volume that's still audible."
+                  matTooltipPosition="after">
+          warning
+        </mat-icon>
+      </a>
       <span matPrefix class="mat-body-1">Volume</span>
     </div>
     <div fxFlex fxLayoutAlign="center center">
@@ -109,25 +115,29 @@
   </div>
 
   <div fxFlex fxLayoutAlign="center center">
-    <button mat-raised-button id="button_PlayPause"
-            color="accent"
+    <button mat-fab id="button_PlayPause"
+            color="primary"
             (click)="playPause()"
             matTooltip="Headphone Required">
-      <mat-icon>headset</mat-icon>
-      <span>{{isPlaying ? "Pause" : "Play"}}</span>
+      <mat-icon class="play-pause-icon" *ngIf="isPlaying">pause</mat-icon>
+      <mat-icon class="play-pause-icon" *ngIf="!isPlaying">play_arrow</mat-icon>
+      <!--<span>{{isPlaying ? pause_circle_filled : <br />
+      <span class="mat-body-2">{{getBinauralFrequency() | number:'1.2-2'}}hz</span>}}</span>-->
     </button>
     <!--<div fxFlex><span mat-body-1>Perceived Frequency: {{getBinauralFrequency() | number:'1.2-2'}}hz</span></div>-->
   </div>
-  
+
 </mat-card>
 
 <mat-card class="binaural-beat-description-form">
   <mat-card-header>
     <mat-card-title>
-      <span class="mat-display-1">Gamma</span>
+      <span class="mat-display-1">{{getFrequencyDescription()[0]}}</span>
+      <br />
+      <span class="mat-body-1">{{getBinauralFrequency() | number:'1.2-2'}}hz</span>
     </mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    Gamma will freak you out, promote hyper-vigilance, possibly make you anxious, possibly prevent and reverse neurodegenerative disease!  Who knows?  Life is weird sometimes...
+    <p>{{getFrequencyDescription()[3]}}</p>
   </mat-card-content>
 </mat-card>
