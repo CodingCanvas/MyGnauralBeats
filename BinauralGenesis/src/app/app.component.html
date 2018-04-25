@@ -11,7 +11,8 @@
     <button mat-fab
             *ngFor="let preset of beatPresets"
             color="primary"
-            (click)="applyBinauralPreset(preset[0], preset[1])">
+            (click)="applyBinauralPreset(preset[0], preset[1])"
+            [disabled]="isPlaying">
       {{preset[1] - preset[0] | number:'1.0-2'}}Hz
     </button>
 
@@ -29,6 +30,7 @@
                   min="48"
                   step="0.1"
                   (input)="updateOnDrag($event.value, undefined, undefined)"
+                  [disabled]="isPlaying"
                   [(ngModel)]="leftFrequency">
       </mat-slider>
     </div>
@@ -42,6 +44,7 @@
                max="400"
                step="0.1"
                [ngModel]="leftFrequency | number:'1.2-2'"
+               [disabled]="isPlaying"
                (ngModelChange)="leftFrequency=$event" />
         <span matSuffix>hz</span>
       </mat-form-field>
@@ -60,6 +63,7 @@
                   min="48"
                   step="0.1"
                   (input)="updateOnDrag(undefined, $event.value, undefined)"
+                  [disabled]="isPlaying"
                   [(ngModel)]="rightFrequency">
       </mat-slider>
     </div>
@@ -73,6 +77,7 @@
                max="400"
                step=".1"
                [ngModel]="rightFrequency | number:'1.2-2'"
+               [disabled]="isPlaying"
                (ngModelChange)="rightFrequency=$event" />
         <span matSuffix>hz</span>
       </mat-form-field>
@@ -97,6 +102,7 @@
                   min="0"
                   step="1"
                   (input)="updateOnDrag(undefined, undefined, $event.value)"
+                  [disabled]="isPlaying"
                   [(ngModel)]="volumeLevel">
       </mat-slider>
     </div>
@@ -105,6 +111,7 @@
         <input matInput
                name="volume-textbox"
                type="number"
+               [disabled]="isPlaying"
                [(ngModel)]="volumeLevel"
                min="0"
                max="100"
@@ -118,13 +125,11 @@
     <button mat-fab id="button_PlayPause"
             color="primary"
             (click)="playPause()"
+            [disabled]="volumeLevel <= 0"
             matTooltip="Headphone Required">
       <mat-icon class="play-pause-icon" *ngIf="isPlaying">pause</mat-icon>
       <mat-icon class="play-pause-icon" *ngIf="!isPlaying">play_arrow</mat-icon>
-      <!--<span>{{isPlaying ? pause_circle_filled : <br />
-      <span class="mat-body-2">{{getBinauralFrequency() | number:'1.2-2'}}hz</span>}}</span>-->
     </button>
-    <!--<div fxFlex><span mat-body-1>Perceived Frequency: {{getBinauralFrequency() | number:'1.2-2'}}hz</span></div>-->
   </div>
 
 </mat-card>
@@ -134,7 +139,7 @@
     <mat-card-title>
       <span class="mat-display-1">{{getFrequencyDescription()[0]}}</span>
       <br />
-      <span class="mat-body-1">{{getBinauralFrequency() | number:'1.2-2'}}hz</span>
+      <span class="mat-body-1">Perceived Frequency: {{getBinauralFrequency() | number:'1.2-2'}}Hz</span>
     </mat-card-title>
   </mat-card-header>
   <mat-card-content>
