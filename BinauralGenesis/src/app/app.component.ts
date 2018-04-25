@@ -30,16 +30,13 @@ export class AppComponent implements OnInit {
   Read more about it at https://www.wikipedia.org/wiki/Binaural_beats`;
 
   isPlaying: boolean = false;
-  volumeLevel: number = 0;
-  leftFrequency: number = 100.0;
-  rightFrequency: number = 107.83;
 
-  beatPresets: Array<[number, number]> = [
-    [120, 121.5],
-    [100, 107.83],
-    [140, 153.4],
-    [130, 158],
-    [140, 180]];
+  binauralFrequency: number = 7.83;
+  audioTone: number = 140;
+  volumeLevel: number = 0;
+
+  //todo: update just to the binaural frequency
+  beatPresets: Array<number> = [1.5, 7.83, 13.4, 28, 40];
 
   //[Name, inclusive lower bound, exclusive upper bound, description]
   beatDescriptions: Array<[string, number, number, string]> = [
@@ -56,7 +53,7 @@ export class AppComponent implements OnInit {
     ["Invalid", 100, 10000,
       "Don't put this into your brain."]
   ];
-  
+
   private volumeRampUp: number = 0.25;
   private volumeRampDown: number = 0.1;
 
@@ -81,38 +78,32 @@ export class AppComponent implements OnInit {
   }
 
   getFrequencyDescription(): [string, number, number, string] {
-    let currentFrequency: number = this.getBinauralFrequency();
+    //todo: expose these to the view, and use them instead of arbitrary, hardcoded integers?
     let iTitle: number = 0;
     let iLowerBound: number = 1;
     let iUpperBound: number = 2;
     let iDescription: number = 4;
 
-    return this.beatDescriptions.find(x => x[iLowerBound] <= currentFrequency && x[iUpperBound] > currentFrequency);
+    return this.beatDescriptions
+      .find(bd =>
+        (bd[iLowerBound] <= this.binauralFrequency) &&
+        (bd[iUpperBound] > this.binauralFrequency));
   }
 
-  getBinauralFrequency(): number {
-    return Math.abs(this.leftFrequency - this.rightFrequency);
-  }
+  updateOnDrag(binauralFrequency: number, audioTone: number, volume: number) {
+    if (!(binauralFrequency === undefined))
+      this.binauralFrequency = binauralFrequency;
 
-  updateOnDrag(leftFrequency: number, rightFrequency: number, volume: number) {
-    if (!(leftFrequency === undefined))
-      this.leftFrequency = leftFrequency;
-
-    if (!(rightFrequency === undefined))
-      this.rightFrequency = rightFrequency;
+    if (!(audioTone === undefined))
+      this.audioTone = audioTone;
 
     if (!(volume === undefined))
       this.volumeLevel = volume;
   }
 
-  applyBinauralPreset(leftFrequency: number, rightFrequency: number) {
-    this.leftFrequency = leftFrequency;
-    this.rightFrequency = rightFrequency;
-  }
-
   updateFrequencyAndVolume() {
     //Used to reduce overall gain range from 0->1 to 0->N.  For hearing safety.
-    const volumeScalingFactor: number = 0.33;
+    const volumeScalingFactor: number = 0.22;
 
     //note: oscillators can only be started once, so we need to re-create & recconnect them every time.  Lame.
     this.connectBinauralOscillators();
@@ -140,8 +131,8 @@ export class AppComponent implements OnInit {
 
     this.leftOscillator = this.audioContext.createOscillator();
     this.rightOscillator = this.audioContext.createOscillator();
-    this.leftOscillator.frequency.setTargetAtTime(this.leftFrequency, 0, 0);
-    this.rightOscillator.frequency.setTargetAtTime(this.rightFrequency, 0, 0);
+    this.leftOscillator.frequency.setTargetAtTime(this.audioTone, 0, 0);
+    this.rightOscillator.frequency.setTargetAtTime(this.audioTone + this.binauralFrequency, 0, 0);
   }
 
   playPause() {
