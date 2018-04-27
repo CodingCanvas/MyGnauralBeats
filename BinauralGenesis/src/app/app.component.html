@@ -1,99 +1,148 @@
 <mat-card class="app-form">
+  <a><mat-icon class="top-right-corner" [matTooltip]="helpDescription">help_outline</mat-icon></a>
   <div fxLayout class="row title">
     <div fxFlex fxLayoutAlign="center center" class="bob">
-      <span class="card-title mat-display-1">MyGnaural Beats</span>
+      <span class="card-title mat-display-1" color="primary">MyGnaural Beats</span>
     </div>
   </div>
 
+  <div fxFlex fxLayoutAlign="space-around center">
+    <!-- Placeholder buttons.  Use ngFor* instead -->
+    <button mat-fab
+            *ngFor="let preset of beatPresets"
+            color="primary"
+            (click)="binauralFrequency = preset"
+            [disabled]="isPlaying">
+      {{preset | number:'1.0-2'}}Hz
+    </button>
+
+  </div>
+
+  <div fxLayout class="input row">
+    <div fxFlex="20%" fxLayoutAlign="end center">
+      <!-- TODO: add tooltip descriptor! -->
+      <span matPrefix class="mat-body-1">Binauaral Frequency</span>
+    </div>
+    <div fxFlex fxLayoutAlign="center center">
+      <mat-slider class="slider-input"
+                  name="binaural-slider"
+                  tabindex="-1"
+                  min="0.1"
+                  max="46"
+                  step="0.1"
+                  (input)="updateOnDrag($event.value, undefined, undefined)"
+                  [disabled]="isPlaying"
+                  [(ngModel)]="binauralFrequency">
+      </mat-slider>
+    </div>
+
+    <div fxLayoutAlign="center center">
+      <mat-form-field class="number-input" name="binaural-field">
+        <input matInput
+               type="number"
+               min="0.1"
+               max="46"
+               step="0.1"
+               [ngModel]="binauralFrequency | number:'1.2-2'"
+               [disabled]="isPlaying"
+               (ngModelChange)="binauralFrequency=$event" />
+        <span matSuffix>hz</span>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div fxLayout class="input row">
+    <div fxFlex="20%" fxLayoutAlign="end center">
+      <!-- TODO: Add a tooltip descriptor! -->
+      <span matPrefix class="mat-body-1">Audio Tone</span>
+    </div>
+    <div fxFlex fxLayoutAlign="center center">
+      <mat-slider class="slider-input"
+                  name="audio-tone-slider"
+                  tabindex="-1"
+                  min="40"
+                  max="400"
+                  step="1"
+                  (input)="updateOnDrag(undefined, $event.value, undefined)"
+                  [disabled]="isPlaying"
+                  [(ngModel)]="audioTone">
+      </mat-slider>
+    </div>
+
+    <div fxLayoutAlign="end center">
+      <mat-form-field class="number-input" name="audio-tone-field">
+        <input matInput
+               type="number"
+               min="40"
+               max="400"
+               step="1"
+               [ngModel]="audioTone | number:'1.2-2'"
+               [disabled]="isPlaying"
+               (ngModelChange)="audioTone=$event" />
+        <span matSuffix>hz</span>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="input row">
+    <div fxFlex="20%" fxLayoutAlign="end center">
+      <a>
+        <mat-icon matTooltip="!!Avoid loud volumes!!  The ideal volume is something quiet, but comfortably audible."
+                  matTooltipPosition="after">
+          warning
+        </mat-icon>
+      </a>
+      <span matPrefix class="mat-body-1">Volume</span>
+    </div>
+    <div fxFlex fxLayoutAlign="center center">
+      <mat-slider class="slider-input"
+                  name="volume-slider"
+                  tabindex="-1"
+                  max="100"
+                  min="0"
+                  step="1"
+                  (input)="updateOnDrag(undefined, undefined, $event.value)"
+                  [disabled]="isPlaying"
+                  [(ngModel)]="volumeLevel">
+      </mat-slider>
+    </div>
+    <div fxLayoutAlign="end center">
+      <mat-form-field class="number-input" name="volume-field">
+        <input matInput
+               name="volume-textbox"
+               type="number"
+               [disabled]="isPlaying"
+               [(ngModel)]="volumeLevel"
+               min="0"
+               max="100"
+               step="1" />
+        <span matSuffix>%</span>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div fxFlex fxLayoutAlign="center center">
+    <button mat-fab id="button_PlayPause"
+            color="primary"
+            (click)="playPause()"
+            [disabled]="volumeLevel <= 0"
+            matTooltip="Headphone Required">
+      <mat-icon class="play-pause-icon" *ngIf="isPlaying">pause</mat-icon>
+      <mat-icon class="play-pause-icon" *ngIf="!isPlaying">play_arrow</mat-icon>
+    </button>
+  </div>
+
+</mat-card>
+
+<mat-card class="binaural-beat-description-form">
+  <mat-card-header>
+    <mat-card-title>
+      <span class="mat-display-1">{{getFrequencyDescription()[0]}}</span>
+      <br />
+      <span class="mat-body-1">Perceived Frequency: {{binauralFrequency | number:'1.2-2'}}Hz</span>
+    </mat-card-title>
+  </mat-card-header>
   <mat-card-content>
-    <div fxLayout class="input row">
-      <div fxFlex="20%" fxLayoutAlign="end center">
-        <span matPrefix class="mat-body-1">Left Ear</span>
-      </div>
-      <div fxFlex fxLayoutAlign="center center">
-        <mat-slider class="slider-input"
-                    name="left-ear-slider"
-                    max="400"
-                    min="48"
-                    step="0.1"
-                    thumb-label="true"
-                    [(ngModel)]="leftFrequency">
-        </mat-slider>
-      </div>
-
-      <div fxLayoutAlign="center center">
-        <mat-form-field class="number-input" name="left-ear-field">
-          <input matInput
-                 name="left-ear-textbox"
-                 type="number"
-                 min="1"
-                 max="400"
-                 step="0.1"
-                 [(ngModel)]="leftFrequency" />
-          <span matSuffix>hz</span>
-        </mat-form-field>
-      </div>
-    </div>
-
-    <div fxLayout class="input row">
-      <div fxFlex="20%" fxLayoutAlign="end center">
-        <span matPrefix class="mat-body-1">Right Ear</span>
-      </div>
-      <div fxFlex fxLayoutAlign="center center">
-        <mat-slider class="slider-input"
-                    name="right-ear-slider"
-                    max="400"
-                    min="48"
-                    step="0.1"
-                    thumb-label="true"
-                    [(ngModel)]="rightFrequency">
-        </mat-slider>
-      </div>
-
-      <div fxLayoutAlign="end center">
-        <mat-form-field class="number-input" name="right-ear-field">
-          <input matInput
-                 name="right-ear-textbox"
-                 type="number"
-                 [(ngModel)]="rightFrequency"
-                 min="1"
-                 max="400"
-                 step=".1" />
-          <span matSuffix>hz</span>
-        </mat-form-field>
-      </div>
-    </div>
-
-    <div class="input row">
-      <div fxFlex="20%" fxLayoutAlign="end center">
-        <span matPrefix class="mat-body-1">Volume</span>
-      </div>
-      <div fxFlex fxLayoutAlign="center center">
-        <mat-slider class="slider-input"
-                    name="volume-slider"
-                    max="100"
-                    min="0"
-                    step="1"
-                    thumb-label="true"
-                    [(ngModel)]="volumeLevel">
-        </mat-slider>
-      </div>
-      <div fxLayoutAlign="end center">
-        <mat-form-field class="number-input" name="volume-field">
-          <input matInput
-                 name="volume-textbox"
-                 type="number"
-                 [(ngModel)]="volumeLevel"
-                 min="0"
-                 max="100"
-                 step="1" />
-          <span matSuffix>%</span>
-        </mat-form-field>
-      </div>
-    </div>
-
-    <div fxFlex fxLayoutAlign="center center" class="button row">
-      <button mat-button class="mat-button-raised" id="button_PlayPause" (click)="playPause()">{{isPlaying ? "Pause" : "Play"}}</button>
-    </div>
+    <p>{{getFrequencyDescription()[3]}}</p>
   </mat-card-content>
 </mat-card>
