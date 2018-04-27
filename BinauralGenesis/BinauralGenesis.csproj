@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="npm run-script build" />
+    <Exec Command="npm run-script build-prod" />
   </Target>
 
 </Project>
