@@ -1,6 +1,6 @@
 {
-  "name": "binaural-genesis",
-  "version": "0.0.0",
+  "name": "mygnaural-beats",
+  "version": "0.0.1",
   "license": "MIT",
   "scripts": {
     "ng": "ng",

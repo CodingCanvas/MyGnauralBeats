@@ -1,6 +1,6 @@
 import { browser, by, element } from 'protractor';
 
-export class BinauralGenesisPage {
+export class MyGnauralBeatsPage {
   navigateTo() {
     return browser.get('/');
   }

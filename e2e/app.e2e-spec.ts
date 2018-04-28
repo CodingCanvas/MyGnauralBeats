@@ -1,10 +1,10 @@
-import { BinauralGenesisPage } from './app.po';
+import { MyGnauralBeatsPage } from './app.po';
 
 describe('binaural-genesis App', () => {
-  let page: BinauralGenesisPage;
+  let page: MyGnauralBeatsPage;
 
   beforeEach(() => {
-    page = new BinauralGenesisPage();
+    page = new MyGnauralBeatsPage();
   });
 
   it('should display welcome message', () => {
