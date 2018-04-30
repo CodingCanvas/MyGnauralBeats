@@ -1,16 +1,30 @@
 //@import '~@angular/material/theming';
 $formWidth: 350px;
+$formPadding: 15px;
+
+//mat-inputs have a mysterious top-border that results in misalignment.  This is a workaround.
+$form-field-top-border: 13.5px;
 
 .app-form {
   width: $formWidth;
   margin: 15px auto 7.5px auto;
-  padding: 15px;
+  padding: $formPadding;
 
-  .top-right-corner {
+  .preset-row{
+    height: 64px;
+    padding-bottom: 10px;
+  }
+
+  .description-icon {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 0px;
+    right: 0px;
     text-align: center;
+    padding: $formPadding;
+  }
+
+  .slider-label{
+    text-align: right;
   }
 
   .card-title {
@@ -18,20 +32,20 @@ $formWidth: 350px;
   }
 
   .mat-display-1 {
-    margin: 0px auto 10px auto;
+    margin: 0px auto;
   }
 
   .row {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    align-content: space-between;
-    align-items: center;
     height: auto;
 
     .number-input {
       width: 80px;
       height: 50px;
+      border: unset;
+      padding-bottom: $form-field-top-border;
     }
 
     .slider-input {
@@ -43,5 +57,5 @@ $formWidth: 350px;
 .binaural-beat-description-form {
   width: $formWidth;
   margin: 7.5px auto 0px auto;
-  padding: 15px;
+  padding: $formPadding;
 }
