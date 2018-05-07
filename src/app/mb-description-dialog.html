@@ -1,0 +1,23 @@
+<div fxLayout fxLayoutAlign="center center">
+    <h1 mat-dialog-title>What are Binaural Beats?</h1>
+</div>
+
+<div mat-dialog-content fxLayout>
+    <div fxLayout="column" fxLayoutAlign="start left" fxLayoutGap="10px">
+        <span class="mat-body-1">
+            Binaural Beats are an auditory illusion caused by playing two tones of slightly different frequency. When listened to with
+            headphones, the mind interprets it as a single rhythmic tone at a frequency identical to the difference in the
+            two tone's frequencies. This illusion is thought to change the predominant neural frequency of the mind (delta,
+            theta, beta, gamma) in a way that might impact one's state of mind.
+        </span>
+        <span class="mat-body-1">
+            Popular for those looking to enhance focus, relaxation, or at least harness the placebo effect to their advantage.
+        </span>
+    </div>
+</div>
+<div mat-dialog-actions fxLayout fxLayoutAlign="center center">
+    <button mat-raised-button color="accent" (click)="onCloseClick()" cdkFocusInitial>OK</button>
+    <!-- <button mat-raised-button color="primary">
+        <a class="mat-body-1" href="https://www.wikipedia.org/wiki/Binaural_beats" target="_blank">Learn more</a>
+    </button> -->
+</div>

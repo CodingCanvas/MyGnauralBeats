@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PlatformModule } from '@angular/cdk/platform';
 import { ObserversModule } from '@angular/cdk/observers';
-
+  
 //todo: Can "GestureConfig" and "HammerJS" be included here instead of app.module?  Low-priority right now... but would be a touch more elegant, it seems.
 import {
   MatButtonModule,
@@ -11,7 +11,8 @@ import {
   MatInputModule,
   MatDividerModule,
   MatIconModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatDialogModule
 } from '@angular/material';
 
 
@@ -25,7 +26,8 @@ import {
     MatInputModule,
     MatDividerModule,
     MatIconModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatDialogModule
   ],
 })
 export class MaterialModule { }

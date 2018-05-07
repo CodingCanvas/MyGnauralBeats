@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Http } from '@angular/http'
 import { Range } from '@angular/core/src/profile/wtf_impl';
+import { MatDialog, MatDialogRef } from '@angular/material';
+
+import {MBDescriptionDialog} from './mb-description-dialog';
 
 @Component({
   selector: 'app-root',
@@ -8,26 +11,10 @@ import { Range } from '@angular/core/src/profile/wtf_impl';
   styleUrls: ['./app.component.scss']
 })
 
-//export class BB_Description {
-//  frequencyMin: number;
-//  frequencyMax: number;
-
-//  label: string;
-//  description: string;
-//}
-
 export class AppComponent implements OnInit {
-  constructor(private _httpService: Http) {
+  constructor(private _httpService: Http, public dialog: MatDialog) {
 
   }
-
-  helpDescription: string =
-    `Binaural Beats are an auditory illusion caused by playing two tones of slightly different frequency.
-  When listened to with headphones, the mind interprets it as a single rhythmic tone at a frequency identical
-  to the difference in the two tone's frequencies.  This illusion is thought to change the predominant neural frequency
-  of the mind (delta, theta, beta, gamma) in a way that might impact one's state of mind.
-  Popular for those looking to enhance focus, relaxation, or at least harness the placebo effect to their advantage.
-  Read more about it at https://www.wikipedia.org/wiki/Binaural_beats`;
 
   isPlaying: boolean = false;
 
@@ -65,6 +52,18 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.initializeAudioPipeline();
+  }
+
+  openDescriptionDialog(): void {
+    let dialogRef = this.dialog.open(MBDescriptionDialog, {
+      maxWidth: '450px',
+      minWidth: '300px',
+      position: {top: '20px'}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 
   initializeAudioPipeline() {
@@ -136,8 +135,7 @@ export class AppComponent implements OnInit {
   }
 
   playPause() {
-    //TODO: try keeping everything started at all times.
-    //"Pausing" simply sets gain to 0, playing sets it to 'volumeLevel'... normalized for hearing safety, of course.
+    //TODO: try allowing for on-the-fly frequency, volume, and pitch changes.
     this.isPlaying = !this.isPlaying;
 
     //if we need to play the audio
@@ -161,6 +159,4 @@ export class AppComponent implements OnInit {
     this.leftOscillator.stop(stopTime);
     this.rightOscillator.stop(stopTime);
   }
-
-  getBeatInformation(): string { return "The jews did it"; }
 }
