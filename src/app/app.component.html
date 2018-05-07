@@ -1,18 +1,16 @@
 <mat-card class="app-form">
-  <a><mat-icon class="top-right-corner" [matTooltip]="helpDescription">help_outline</mat-icon></a>
   <div fxLayout class="row title">
-    <div fxFlex fxLayoutAlign="center center" class="bob">
+    <div fxFlex fxLayoutAlign="center center">
       <span class="card-title mat-display-1" color="primary">MyGnaural Beats</span>
+      <a>
+          <mat-icon class="description-icon" [matTooltip]="helpDescription">help_outline</mat-icon>
+        </a>
     </div>
   </div>
 
-  <div fxFlex fxLayoutAlign="space-around center">
+  <div fxFlex fxLayoutAlign="space-around center" class="preset-row">
     <!-- Placeholder buttons.  Use ngFor* instead -->
-    <button mat-fab
-            *ngFor="let preset of beatPresets"
-            color="primary"
-            (click)="binauralFrequency = preset"
-            [disabled]="isPlaying">
+    <button mat-fab *ngFor="let preset of beatPresets" color="primary" (click)="binauralFrequency = preset" [disabled]="isPlaying">
       {{preset | number:'1.0-2'}}Hz
     </button>
 
@@ -21,31 +19,23 @@
   <div fxLayout class="input row">
     <div fxFlex="20%" fxLayoutAlign="end center">
       <!-- TODO: add tooltip descriptor! -->
-      <span matPrefix class="mat-body-1">Binauaral Frequency</span>
+      <span matPrefix class="slider-label mat-body-1">Binauaral Frequency</span>
     </div>
     <div fxFlex fxLayoutAlign="center center">
-      <mat-slider class="slider-input"
-                  name="binaural-slider"
-                  tabindex="-1"
-                  min="0.1"
-                  max="46"
-                  step="0.1"
-                  (input)="updateOnDrag($event.value, undefined, undefined)"
-                  [disabled]="isPlaying"
-                  [(ngModel)]="binauralFrequency">
+      <mat-slider class="slider-input" name="binaural-slider" tabindex="-1" min="0.1" max="46" step="0.1" (input)="updateOnDrag($event.value, undefined, undefined)"
+        [disabled]="isPlaying" [(ngModel)]="binauralFrequency">
       </mat-slider>
+      <a>
+          <mat-icon matTooltip="This changes the perceived frequency that your brain will generate.  Read more below.">
+            info_outline
+          </mat-icon>
+        </a>
     </div>
 
     <div fxLayoutAlign="center center">
       <mat-form-field class="number-input" name="binaural-field">
-        <input matInput
-               type="number"
-               min="0.1"
-               max="46"
-               step="0.1"
-               [ngModel]="binauralFrequency | number:'1.2-2'"
-               [disabled]="isPlaying"
-               (ngModelChange)="binauralFrequency=$event" />
+        <input matInput type="number" min="0.1" max="46" step="0.1" [ngModel]="binauralFrequency | number:'1.2-2'" [disabled]="isPlaying"
+          (ngModelChange)="binauralFrequency=$event" />
         <span matSuffix>hz</span>
       </mat-form-field>
     </div>
@@ -54,31 +44,23 @@
   <div fxLayout class="input row">
     <div fxFlex="20%" fxLayoutAlign="end center">
       <!-- TODO: Add a tooltip descriptor! -->
-      <span matPrefix class="mat-body-1">Audio Tone</span>
+      <span matPrefix class="slider-label mat-body-1">Audio Tone</span>
     </div>
     <div fxFlex fxLayoutAlign="center center">
-      <mat-slider class="slider-input"
-                  name="audio-tone-slider"
-                  tabindex="-1"
-                  min="40"
-                  max="400"
-                  step="1"
-                  (input)="updateOnDrag(undefined, $event.value, undefined)"
-                  [disabled]="isPlaying"
-                  [(ngModel)]="audioTone">
+      <mat-slider class="slider-input" name="audio-tone-slider" tabindex="-1" min="40" max="400" step="1" (input)="updateOnDrag(undefined, $event.value, undefined)"
+        [disabled]="isPlaying" [(ngModel)]="audioTone">
       </mat-slider>
+      <a>
+          <mat-icon matTooltip="This changes the pitch of the audio.  Choose any tone that doesn't bother you.">
+            info_outline
+          </mat-icon>
+        </a>
     </div>
 
     <div fxLayoutAlign="end center">
       <mat-form-field class="number-input" name="audio-tone-field">
-        <input matInput
-               type="number"
-               min="40"
-               max="400"
-               step="1"
-               [ngModel]="audioTone | number:'1.2-2'"
-               [disabled]="isPlaying"
-               (ngModelChange)="audioTone=$event" />
+        <input matInput type="number" min="40" max="400" step="1" [ngModel]="audioTone | number:'1.2-2'" [disabled]="isPlaying" (ngModelChange)="audioTone=$event"
+        />
         <span matSuffix>hz</span>
       </mat-form-field>
     </div>
@@ -86,47 +68,29 @@
 
   <div class="input row">
     <div fxFlex="20%" fxLayoutAlign="end center">
+      <span matPrefix class="slider-label mat-body-1">Volume</span>
+    </div>
+    <div fxFlex fxLayoutAlign="center center">
+      <mat-slider class="slider-input" name="volume-slider" tabindex="-1" max="100" min="0" step="1" (input)="updateOnDrag(undefined, undefined, $event.value)"
+        [disabled]="isPlaying" [(ngModel)]="volumeLevel">
+      </mat-slider>
       <a>
-        <mat-icon matTooltip="!!Avoid loud volumes!!  The ideal volume is something quiet, but comfortably audible."
-                  matTooltipPosition="after">
+        <mat-icon matTooltip="!!Avoid loud volumes!!  The ideal volume is something quiet, but comfortably audible.">
           warning
         </mat-icon>
       </a>
-      <span matPrefix class="mat-body-1">Volume</span>
-    </div>
-    <div fxFlex fxLayoutAlign="center center">
-      <mat-slider class="slider-input"
-                  name="volume-slider"
-                  tabindex="-1"
-                  max="100"
-                  min="0"
-                  step="1"
-                  (input)="updateOnDrag(undefined, undefined, $event.value)"
-                  [disabled]="isPlaying"
-                  [(ngModel)]="volumeLevel">
-      </mat-slider>
     </div>
     <div fxLayoutAlign="end center">
       <mat-form-field class="number-input" name="volume-field">
-        <input matInput
-               name="volume-textbox"
-               type="number"
-               [disabled]="isPlaying"
-               [(ngModel)]="volumeLevel"
-               min="0"
-               max="100"
-               step="1" />
+        <input matInput name="volume-textbox" type="number" [disabled]="isPlaying" [(ngModel)]="volumeLevel" min="0" max="100" step="1"
+        />
         <span matSuffix>%</span>
       </mat-form-field>
     </div>
   </div>
 
   <div fxFlex fxLayoutAlign="center center">
-    <button mat-fab id="button_PlayPause"
-            color="primary"
-            (click)="playPause()"
-            [disabled]="volumeLevel <= 0"
-            matTooltip="Headphone Required">
+    <button mat-fab id="button_PlayPause" color="primary" (click)="playPause()" [disabled]="volumeLevel <= 0" matTooltip="Headphone Required">
       <mat-icon class="play-pause-icon" *ngIf="isPlaying">pause</mat-icon>
       <mat-icon class="play-pause-icon" *ngIf="!isPlaying">play_arrow</mat-icon>
     </button>
